@@ -262,8 +262,8 @@ module RSpec::Puppet
         list.each do |param, value|
           param = param.to_sym
 
-          if value.nil? then
-            unless resource[param].nil?
+          if value.nil? or (value == :undef) then
+            unless resource[param].nil? or (resource[param] == :undef)
               @errors << "#{param} undefined"
             end
           else
