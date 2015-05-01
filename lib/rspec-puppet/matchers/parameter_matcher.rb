@@ -55,7 +55,7 @@ module RSpec::Puppet
       #
       # @return [true, false] If the resource matched
       def check(expected, actual)
-        return false if actual.nil? && !expected.nil?
+        return (expected.nil? == @should_match) if actual.nil?
         case expected
         when Proc
           check_proc(expected, actual)
@@ -65,6 +65,8 @@ module RSpec::Puppet
           check_hash(expected, actual)
         when Array
           check_array(expected, actual)
+        when nil
+          !@should_match
         else
           check_string(expected, actual)
         end

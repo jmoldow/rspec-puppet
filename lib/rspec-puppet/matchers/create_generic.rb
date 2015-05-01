@@ -185,6 +185,7 @@ module RSpec::Puppet
         output = []
         list.each do |param, value|
           if value.nil?
+            # Is this correct? It probably is: contain_class('foo').with_ensure - no args
             output << "#{param.to_s} #{type == :not ? 'un' : ''}defined"
           else
             a = type == :not ? '!' : '='
